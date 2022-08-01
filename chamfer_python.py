@@ -5,8 +5,7 @@ def pairwise_dist(x, y):
     xx, yy, zz = torch.mm(x, x.t()), torch.mm(y, y.t()), torch.mm(x, y.t())
     rx = xx.diag().unsqueeze(0).expand_as(xx)
     ry = yy.diag().unsqueeze(0).expand_as(yy)
-    P = rx.t() + ry - 2 * zz
-    return P
+    return rx.t() + ry - 2 * zz
 
 
 def NN_loss(x, y, dim=0):
@@ -25,8 +24,7 @@ def batched_pairwise_dist(a, b):
     zz = torch.bmm(x, y.transpose(2, 1))
     rx = xx.unsqueeze(1).expand(bs, num_points_y, num_points_x) # Diagonal elements xx
     ry = yy.unsqueeze(1).expand(bs, num_points_x, num_points_y) # Diagonal elements yy
-    P = rx.transpose(2, 1) + ry - 2 * zz
-    return P
+    return rx.transpose(2, 1) + ry - 2 * zz
 
 def distChamfer(a, b):
     """

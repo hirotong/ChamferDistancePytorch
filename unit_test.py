@@ -31,7 +31,7 @@ def test_chamfer(distChamfer, dim):
     assert (
             torch.norm(xd1.float()) + torch.norm(xd2.float()) == 0
     ), "chamfer cuda and chamfer normal are not giving the same results"
-    print(f"fscore :", fscore(dist1, dist2))
+    print("fscore :", fscore(dist1, dist2))
     print("Unit test passed")
 
 
@@ -41,7 +41,7 @@ def timings(distChamfer, dim):
     print("Timings : Start CUDA version")
     start = time.time()
     num_it = 100
-    for i in range(num_it):
+    for _ in range(num_it):
         points1 = Variable(p1, requires_grad=True)
         points2 = Variable(p2)
         mydist1, mydist2, idx1, idx2 = distChamfer(points1, points2)
@@ -52,7 +52,7 @@ def timings(distChamfer, dim):
 
     print("Timings : Start Pythonic version")
     start = time.time()
-    for i in range(num_it):
+    for _ in range(num_it):
         points1 = Variable(p1, requires_grad=True)
         points2 = Variable(p2)
         mydist1, mydist2, idx1, idx2 = chamfer_python.distChamfer(points1, points2)
